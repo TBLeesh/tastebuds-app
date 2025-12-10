@@ -1,0 +1,151 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TasteBuds</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1600&q=80')
+        center/cover no-repeat fixed;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background: black;
+      color: white;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #444;
+    }
+
+    .restaurant {
+      background: white;
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>TasteBuds</h1>
+
+    <div class="section">
+      <label>Your Location</label>
+      <input type="text" id="location" placeholder="City, Country" />
+    </div>
+
+    <div class="section">
+      <label>Payment Preference</label>
+      <select id="payment">
+        <option value="split">Split the bill</option>
+        <option value="you">I'm paying</option>
+        <option value="them">They're paying</option>
+      </select>
+    </div>
+
+    <div class="section">
+      <label>Preferred Cuisine</label>
+      <select id="cuisine">
+        <option>All</option>
+        <option>Italian</option>
+        <option>Mexican</option>
+        <option>Chinese</option>
+        <option>Japanese</option>
+        <option>Indian</option>
+        <option>French</option>
+        <option>Mediterranean</option>
+        <option>Thai</option>
+        <option>American</option>
+        <option>Vietnamese</option>
+        <option>Korean</option>
+        <option>Middle Eastern</option>
+      </select>
+    </div>
+
+    <button onclick="searchRestaurants()">Find Restaurants</button>
+
+    <div id="results" class="section"></div>
+  </div>
+
+  <script>
+    function searchRestaurants() {
+      const cuisine = document.getElementById("cuisine").value;
+
+      const sampleData = [
+        { name: "Local Bistro", cuisine: "French" },
+        { name: "Mama’s Pasta House", cuisine: "Italian" },
+        { name: "Dragon Flame", cuisine: "Chinese" },
+        { name: "Taco Fiesta", cuisine: "Mexican" },
+        { name: "Sushi Zen", cuisine: "Japanese" },
+        { name: "Bombay Spice", cuisine: "Indian" }
+      ];
+
+      const results = document.getElementById("results");
+      results.innerHTML = "";
+
+      let filtered =
+        cuisine === "All"
+          ? sampleData
+          : sampleData.filter((r) => r.cuisine === cuisine);
+
+      if (filtered.length === 0) {
+        results.innerHTML = "<p>No restaurants found.</p>";
+        return;
+      }
+
+      filtered.forEach((r) => {
+        results.innerHTML += `
+          <div class="restaurant">
+            <strong>${r.name}</strong><br />
+            <span>Cuisine: ${r.cuisine}</span>
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>
